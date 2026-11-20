@@ -1,0 +1,70 @@
+<main style="max-width: 800px; margin: 2rem auto; font-family: Arial, sans-serif;">
+  <h1>Gestion de Productos (Firestore)</h1>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div>
+      <label>Nombre:</label>
+      <input type="text" formControlName="nombre" placeholder="Ej. Mouse" />
+      <small *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+        El nombre es obligatorio y debe contener texto.
+      </small>
+    </div>
+
+    <div>
+      <label>Precio:</label>
+      <input type="number" step="any" formControlName="precio" />
+      <small *ngIf="form.get('precio')?.invalid && form.get('precio')?.touched">
+        El precio debe ser numerico mayor o igual a 0.
+      </small>
+    </div>
+
+    <div>
+      <label>Stock:</label>
+      <input type="number" step="1" formControlName="stock" />
+      <small *ngIf="form.get('stock')?.invalid && form.get('stock')?.touched">
+        El stock debe ser un numero entero mayor o igual a 0.
+      </small>
+    </div>
+
+    <div>
+      <label>Categoria:</label>
+      <input type="text" formControlName="categoria" placeholder="Ej. Perifericos" />
+      <small *ngIf="form.get('categoria')?.invalid && form.get('categoria')?.touched">
+        La categoria es obligatoria y debe contener texto.
+      </small>
+    </div>
+
+    <div style="margin-top: 1rem;">
+      <button type="submit">{{ editandoId ? 'Actualizar producto' : 'Crear producto' }}</button>
+      <button type="button" *ngIf="editandoId" (click)="cancelarEdicion()">Cancelar</button>
+    </div>
+  </form>
+
+  <p *ngIf="mensajeError" style="color: red;">{{ mensajeError }}</p>
+  <p *ngIf="cargando">Cargando productos...</p>
+  <p *ngIf="!cargando && productos.length === 0">No hay productos en la coleccion.</p>
+
+  <table *ngIf="productos.length > 0" border="1" cellpadding="8" cellspacing="0" style="width: 100%; margin-top: 1.5rem;">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Categoria</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of productos">
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.precio }}</td>
+        <td>{{ p.stock }}</td>
+        <td>{{ p.categoria }}</td>
+        <td>
+          <button type="button" (click)="editar(p)">Editar</button>
+          <button type="button" (click)="eliminar(p)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>
