@@ -24,6 +24,5 @@ Coleccion en Firestore: `productos`
 3. Configura las credenciales de Firebase en `src/app/config/firebase.config.ts` (evitando subir credenciales privadas sensibles al repositorio).
 
 ## Instalacion y ejecucion local
-```bash
-npm install
-ng serve
+https://firestoreproductos.vercel.app
+https://github.com/DavidCajisaca/Fire-Productos
